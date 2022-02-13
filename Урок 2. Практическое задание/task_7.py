@@ -13,3 +13,15 @@
 
 Решите через рекурсию. В задании нельзя применять циклы.
 """
+
+
+def proof(n, i=0, suma=0):
+    if i == n:
+        return suma
+    i += 1
+    suma += i
+    return proof(n, i, suma)
+
+
+n = 5
+print(int(n * (n + 1) / 2) == proof(n))

@@ -10,3 +10,24 @@
 Решите через рекурсию. В задании нельзя применять циклы.
 Нужно обойтисть без создания массива!
 """
+
+
+def my_func():
+    def suma(n, num=1, i=1, cur_sum=1):
+        if i == n:
+            return i, cur_sum
+        i += 1
+        num /= -2
+        cur_sum += num
+        return suma(n, num, i, cur_sum)
+
+    try:
+        user_num = int(input('Введите количество элементов: '))
+        i, y = suma(user_num)
+        print(f"Количество элементов - {i}, их сумма - {y}")
+    except ValueError:
+        print('Вы ввели строку')
+        return my_func()
+
+
+my_func()
