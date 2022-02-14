@@ -18,3 +18,21 @@
 Не забудьте проверить на числе, которое оканчивается на 0.
 1230 -> 0321
 """
+
+
+def my_func():
+    def turn_over(num):
+        if num < 10:
+            return str(num)
+        else:
+            return str(num % 10) + turn_over(num // 10)
+
+    try:
+        user_num = int(input('Введите натуральное число: '))
+        print(f"Перевернутое число - {turn_over(user_num)}")
+    except ValueError:
+        print('Вы ввели строку')
+        return my_func()
+
+
+my_func()

@@ -7,3 +7,30 @@
 
 Решите через рекурсию. В задании нельзя применять циклы.
 """
+import random
+
+
+def guess_number(num, i=10):
+    if i == 0:
+        print(f"Вы проиграли. Загаданное число - {num}")
+        return ''
+    print(f"У Вас осталось {i} попыток")
+    try:
+        user_num = int(input('Введите число: '))
+    except ValueError:
+        print("Вы ввели строку. Необходимо число")
+        return guess_number(num, i)
+    if user_num == num:
+        print("Поздравляю. Вы выиграли")
+        return ''
+    elif user_num > num:
+        print("Загаданное число меньше")
+    else:
+        print("Загаданное число больше")
+
+    i -= 1
+    return guess_number(num, i)
+
+
+secret_num = random.randint(1, 100)
+guess_number(secret_num)

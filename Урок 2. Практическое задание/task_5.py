@@ -19,3 +19,19 @@
 
 Допускается исп-е встроенных ф-ций
 """
+
+
+def table_ascii(i=31, j=0):
+    if i > 126:
+        return ''
+    i += 1
+    j += 1
+    if j < 11:
+        print(f"{i} - {chr(i)}", end=' ')
+    else:
+        print(f"{i} - {chr(i)}")
+        j = 0
+    return table_ascii(i, j)
+
+
+table_ascii()
