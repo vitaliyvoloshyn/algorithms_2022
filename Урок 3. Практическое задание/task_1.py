@@ -28,3 +28,70 @@ b) получение элемента списка, оцените сложно
 обязательно реализуйте ф-цию-декоратор и пусть она считает время
 И примените ее к своим функциям!
 """
+
+import time
+
+
+# декоратор для замера работы функции
+def stopwatch(func):
+    def wrapper(args=None):
+        start = time.time()
+        obj = func(args)
+        end = time.time()
+        print(f"Время операции {func} - {end - start} сек")
+        return obj
+
+    return wrapper
+
+
+# а) заполнение списка и словаря
+# замеры времени показывают, что заполнение словаря занимает больше времени, чем заполнение списка
+# и заполнение списка и заполнение словаря имеют сложность в О-нотации O(len(n))
+@stopwatch
+def list_complation(*args):
+    lst = [i for i in range(10 ** 7)]
+    return lst
+
+
+@stopwatch
+def dict_complation(*args):
+    dict = {i: i for i in range(10 ** 7)}
+    return dict
+
+
+# b) получение элемента списка и словаря
+# и получение элемента списка и получение элемента словаря имеют константную сложность в О-нотации - O(1)
+# по замерам времени обе операции в данном случае выполняются мгновенно
+@stopwatch
+def take_el_from_list(lst):
+    return lst[9999998]
+
+
+@stopwatch
+def take_el_from_dict(dc):
+    return dc[9999999]
+
+
+# b) удаление элемента списка и словаря
+# и удаление элемента списка и удаление элемента словаря имеют константную сложность в О-нотации - O(1)
+# по замерам времени обе операции в данном случае выполняются мгновенно
+@stopwatch
+def delete_el_from_list(lst: list):
+    lst.pop(9999999)
+    return lst
+
+
+@stopwatch
+def delete_el_from_dict(dc: dict):
+    dc.pop(9999999)
+    return dc
+
+
+test_lst = list_complation()
+test_dict = dict_complation()
+
+take_el_from_list(test_lst)
+take_el_from_dict(test_dict)
+
+test_lst = delete_el_from_list(test_lst)
+test_dict = delete_el_from_dict(test_dict)
