@@ -12,6 +12,8 @@
 ОБЯЗАТЕЛЬНО! Добавьте аналитику: что вы сделали и какой это принесло эффект
 """
 
+import timeit
+
 
 def func_1(nums):
     new_arr = []
@@ -19,3 +21,17 @@ def func_1(nums):
         if nums[i] % 2 == 0:
             new_arr.append(i)
     return new_arr
+
+
+def func_2(nums):
+    return [i for i in range(len(nums)) if nums[i] % 2 == 0]
+
+
+lst = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(func_1(lst))
+print(timeit.timeit(stmt="func_1", number=1000000, globals=globals()))
+print(func_2(lst))
+print(timeit.timeit(stmt="func_2", number=1000000, globals=globals()))
+"""вторая функция реализует задачу путем применения LC.
+Замеры времени показывают различные результаты - в одном случае быстрее работает функция 1, в другом - функция 2.
+Можно сделать вывод, что оба подхода практически одинаково эффективны"""
