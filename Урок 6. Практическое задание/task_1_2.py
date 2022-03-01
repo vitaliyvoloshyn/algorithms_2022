@@ -30,3 +30,24 @@
 
 Это файл для второго скрипта
 """
+import json
+from memory_profiler import profile
+
+@profile()
+def create_dict():
+    d = {}
+    for i in range(10000):
+        d[i] = i**2
+    return d
+
+@profile()
+def create_dict_ser():
+    d = {}
+    for i in range(10000):
+        d[i] = i ** 2
+    out = json.dumps(d)
+    del(d)
+    return out
+
+create_dict()
+create_dict_ser()
