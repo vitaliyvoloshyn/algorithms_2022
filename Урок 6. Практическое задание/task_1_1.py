@@ -30,3 +30,40 @@
 
 Это файл для первого скрипта
 """
+from memory_profiler import profile
+
+
+@profile
+def create_list():
+    lst = []
+    for i in range(100000):
+        lst.append(i)
+    return lst
+
+
+@profile
+def create_gen():
+    gen = (i for i in range(100000))
+    return gen
+
+
+create_list()
+create_gen()
+
+# Line #    Mem usage    Increment  Occurrences   Line Contents
+# =============================================================
+#     36     15.9 MiB     15.9 MiB           1   @profile
+#     37                                         def create_list():
+#     38     15.9 MiB      0.0 MiB           1       lst = []
+#     39     18.1 MiB      0.0 MiB      100001       for i in range(100000):
+#     40     18.1 MiB      2.2 MiB      100000           lst.append(i)
+#     41     18.1 MiB      0.0 MiB           1       return lst
+
+# Line #    Mem usage    Increment  Occurrences   Line Contents
+# =============================================================
+#     44     16.0 MiB     16.0 MiB           1   @profile
+#     45                                         def create_gen():
+#     46     16.0 MiB      0.0 MiB           1       gen = (i for i in range(100000))
+#     47     16.0 MiB      0.0 MiB           1       return gen
+
+# применение генератора вместо больших списков позволяет экономить память

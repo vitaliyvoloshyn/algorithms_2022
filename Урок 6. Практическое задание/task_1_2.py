@@ -30,3 +30,46 @@
 
 Это файл для второго скрипта
 """
+import json
+from memory_profiler import profile
+
+@profile()
+def create_dict():
+    d = {}
+    for i in range(10000):
+        d[i] = i**2
+    return d
+
+@profile()
+def create_dict_ser():
+    d = {}
+    for i in range(10000):
+        d[i] = i ** 2
+    out = json.dumps(d)
+    del(d)
+    return out
+
+create_dict()
+create_dict_ser()
+
+# Line #    Mem usage    Increment  Occurrences   Line Contents
+# =============================================================
+#     36     16.1 MiB     16.1 MiB           1   @profile()
+#     37                                         def create_dict():
+#     38     16.1 MiB      0.0 MiB           1       d = {}
+#     39     16.7 MiB      0.3 MiB       10001       for i in range(10000):
+#     40     16.7 MiB      0.3 MiB       10000           d[i] = i**2
+#     41     16.7 MiB      0.0 MiB           1       return d
+#
+
+#
+# Line #    Mem usage    Increment  Occurrences   Line Contents
+# =============================================================
+#     43     16.1 MiB     16.1 MiB           1   @profile()
+#     44                                         def create_dict_ser():
+#     45     16.1 MiB      0.0 MiB           1       d = {}
+#     46     16.7 MiB      0.3 MiB       10001       for i in range(10000):
+#     47     16.7 MiB      0.3 MiB       10000           d[i] = i ** 2
+#     48     17.6 MiB      0.9 MiB           1       out = json.dumps(d)
+#     49     16.7 MiB     -0.8 MiB           1       del(d)
+#     50     16.7 MiB      0.0 MiB           1       return out

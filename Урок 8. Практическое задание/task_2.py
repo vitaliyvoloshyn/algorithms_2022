@@ -85,10 +85,13 @@ r = BinaryTree(8)
 print(r.get_root_val())
 print(r.get_left_child())
 r.insert_left(40)
+
 r.insert_left(7)
 print(r.get_left_child())
 print(r.get_left_child().get_root_val())
 r.insert_right(5)
+=======
+
 r.insert_right(12)
 print(r.get_right_child())
 print(r.get_right_child().get_root_val())

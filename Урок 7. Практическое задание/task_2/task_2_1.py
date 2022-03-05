@@ -15,3 +15,60 @@
 
 сделайте замеры на массивах длиной 10, 100, 1000 элементов
 """
+
+from random import randint
+from timeit import timeit
+
+lst_10 = []
+for i in range(2 * 5 + 1):
+    lst_10.append(randint(0, 1000))
+lst_100 = []
+for i in range(2 * 50 + 1):
+    lst_100.append(randint(0, 1000))
+lst_1000 = []
+for i in range(2 * 500 + 1):
+    lst_1000.append(randint(0, 1000))
+
+
+def median_gnome(data):
+    # гномья сортировка
+    i, j, size = 1, 2, len(data)
+    while i < size:
+        if data[i - 1] <= data[i]:
+            i, j = j, j + 1
+        else:
+            data[i - 1], data[i] = data[i], data[i - 1]
+            i -= 1
+            if i == 0:
+                i, j = j, j + 1
+    # поиск медианы
+    n = len(data)
+    index = n // 2
+    if n % 2:
+        return sorted(data)[index]
+    return sum(sorted(data)[index - 1:index + 1]) / 2
+
+
+print(timeit(stmt='median_gnome(lst_10)', number=100, globals=globals()))
+print(timeit(stmt='median_gnome(lst_100)', number=100, globals=globals()))
+print(timeit(stmt='median_gnome(lst_1000[:])', number=100, globals=globals()))
+
+# поиск медианы с сортировкой списка гномьей сортировкой
+# 10 - 0.0005795999999999996
+# 100 - 0.00549079999999999
+# 1000 - 21.490038000000002
+
+# поиск медианы путем удаления максимальных элементов
+# 10 - 0.0007191000000000003
+# 100 - 0.02860059999999999
+# 1000 - 2.7775874
+
+# встроенная функция поиска медианы:
+# 10 - 0.001622300000000007
+# 100 - 0.01145539999999999
+# 1000 - 0.1711306
+
+# замеры показывают следующую картину:
+# в поиске медианы для небольших списков наименьшее время показывает первый вариант - поиск медианы с применением
+# гномьей сортировки, но на больших списках это очень медленный вариант
+# в поиске медианы для больших списков вне конкуренции встроенная функция поиска медианы из модуля statistics
