@@ -19,7 +19,7 @@ from collections import Counter
 from collections import namedtuple
 
 
-# добавим классы для хранения информации о структуре дерева
+# добавим классы для хранения информации о структуре  дерева
 # воспользуемся функцией namedtuple из стандартной библиотеки
 class Node(namedtuple("Node", ["left", "right"])):  # класс для ветвей дерева - внутренних узлов; у них есть потомки
     def walk(self, code, acc):
