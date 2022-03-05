@@ -14,6 +14,8 @@
 через ООП или предложить иной подход к решению.
 """
 
+=======
+
 import heapq
 from collections import Counter
 from collections import namedtuple
